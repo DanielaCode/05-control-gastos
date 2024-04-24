@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 function BudgetForm() {
   const [budget, setBudget] = useState(0);
+
+  //SECTION - el handler de cuando escriben en el input de definir presupuesto
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setBudget(e.target.valueAsNumber);
   }
+
+  //SECTION - validador de si el budget es menor a cero o NaN entonces desabilita el boton de submit
+  const isValid = useMemo(() => isNaN(budget) || budget <= 0, [budget]);
+  //NOTE - Recuerda que useMemo es una alternativa para evitar poner logica en el template, mejorar performance, y mas limpio que un state derivado por que no tienes que poner en el template isValid() solo isValid
+
   return (
     <form className="space-y-5">
       <section className="flex flex-col space-y-5">
@@ -27,7 +34,8 @@ function BudgetForm() {
       <input
         type="submit"
         value="definir presupuesto"
-        className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white from-black font-bold p-2 uppercase text-base w-full"
+        className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white from-black font-bold p-2 uppercase text-base w-full disabled:opacity-40"
+        disabled={isValid}
       />
     </form>
   );
