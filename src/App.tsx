@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import BudgetForm from "./components/BudgetForm";
 import { useBudget } from "./hooks/useBudget";
 import BudgetTracker from "./components/BudgetTracker";
+import ExpenseModal from "./components/ExpenceModal";
 
 function App() {
   //SECTION - 8. consumir la informacion compartida en mi caso el state y el dispatch que tiene mi context
@@ -22,6 +23,7 @@ function App() {
       <div className="max-w-4xl mx-auto bg-white rounded-md shadow-lg mt-10 p-10 ">
         {isValidBudget?<BudgetTracker/>:<BudgetForm/>}
       </div>
+      {isValidBudget&&<ExpenseModal/>}
     </>
   );
 }
