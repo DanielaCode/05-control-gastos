@@ -1,4 +1,12 @@
 import { categories } from "../data/categories";
+import Calendar from 'react-calendar';
+import DatePicker from 'react-date-picker'
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
+
+//SECTION - es para el date picker que instale de un tercero desde npm website
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 //SECTION - Form que se muestra en el modal para agregar gastos
 function ExpenceForm() {
@@ -31,7 +39,7 @@ function ExpenceForm() {
         />
 
         <label htmlFor="expenceCategory" className="text-2xl">
-          Nombre del gasto:
+          Categoria:
         </label>
         <select
           id="expenceCategory"
@@ -44,6 +52,12 @@ function ExpenceForm() {
             )}
             
         </select>
+        <label htmlFor="date" className="text-2xl">
+          Fecha:
+        </label>
+        <DatePicker
+          className="bg-slate-100 p-3"
+        />
         <input 
             type="submit" 
             value="agreguemos esto" 
