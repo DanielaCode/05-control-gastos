@@ -1,24 +1,26 @@
 import { Fragment } from 'react'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
 import { Dialog, Transition } from '@headlessui/react'
+import { useBudget } from '../hooks/useBudget'
 
 //SECTION - un componente sacado de un link, muestra un modal cuando presionas el +
 //LINK - https://gist.github.com/codigoconjuan/92e8a52abc8bd9ea5b81e5ad664d8ef0
 //NOTE -importar dependencias que usa con npm i @heroicons/react @headlessui/react
 //NOTE - show muestra o oculta el modal  en Transition
 export default function ExpenseModal() {
-
+    const{state, dispatch} = useBudget()
   return (
     <>
       <div className="fixed right-5 bottom-5 flex items-center justify-center">
         <button
           type="button"
+          onClick={()=> dispatch({type: "show-modal"})}
         >
           <PlusCircleIcon className='w-16 h-16 text-blue-600 rounded-full' />
         </button>
       </div>
       
-      <Transition appear show={false} as={Fragment}>
+      <Transition appear show={state.modal} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
