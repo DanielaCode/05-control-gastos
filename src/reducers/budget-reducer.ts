@@ -1,7 +1,9 @@
 //SECTION - type para action
 export type BudgetActions = 
 {type:"add-budget", payload:{budget:number}}|
-{type:"show-modal"}
+{type:"show-modal"}|
+{type:"close-modal"}
+
 
 
 //SECTION - type para state
@@ -38,6 +40,13 @@ export function budgetReducer(
         }
     }
 
+    if (action.type==="close-modal") {
+        
+        return{
+            ...state,
+            modal: false
+        }
+    }
 
     return state
 }
