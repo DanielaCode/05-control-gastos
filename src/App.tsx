@@ -5,7 +5,8 @@ function App() {
   //SECTION - 8. consumir la informacion compartida en mi caso el state y el dispatch que tiene mi context
  
   //SECTION - 10. consumir el context usando un customHook, ver commit anterior para entender por que 8. esta vacio
-  const [state,dispatch] = useBudget();
+  //FIXME - me equivoque aca era {state,dispatch} no []
+  const {state,dispatch} = useBudget();
 
   return (
     <>
