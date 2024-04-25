@@ -1,12 +1,12 @@
 import BudgetForm from "./components/BudgetForm";
-import { useBudget } from "./hooks/useBudget";
 
 function App() {
   //SECTION - 8. consumir la informacion compartida en mi caso el state y el dispatch que tiene mi context
  
   //SECTION - 10. consumir el context usando un customHook, ver commit anterior para entender por que 8. esta vacio
   //FIXME - me equivoque aca era {state,dispatch} no []
-  const {state,dispatch} = useBudget();
+  //NOTE -  por ahora no necesito esto en app pues ya no necesito pasarlo por props, uso directo en BudgetForm component
+  //const {state,dispatch} = useBudget();
 
   return (
     <>

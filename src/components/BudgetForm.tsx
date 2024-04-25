@@ -1,7 +1,11 @@
 import { useMemo, useState } from "react";
+import { useBudget } from "../hooks/useBudget";
 
 function BudgetForm() {
   const [budget, setBudget] = useState(0);
+
+  //SECTION -11. consumiendo el reducer (donde sea) que esta en mi contexto global
+  const {dispatch} = useBudget();
 
   //SECTION - el handler de cuando escriben en el input de definir presupuesto
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -12,8 +16,14 @@ function BudgetForm() {
   const isValid = useMemo(() => isNaN(budget) || budget <= 0, [budget]);
   //NOTE - Recuerda que useMemo es una alternativa para evitar poner logica en el template, mejorar performance, y mas limpio que un state derivado por que no tienes que poner en el template isValid() solo isValid
 
+  //SECTION - ejecutar la accion en mi reducer de setear el presupuesto cuando se haga submit del form
+  function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+    e.preventDefault()
+    dispatch({type:"add-budget",payload:{budget}})
+  }
+
   return (
-    <form className="space-y-5">
+    <form className="space-y-5" onSubmit={handleSubmit}>
       <section className="flex flex-col space-y-5">
         <label
           htmlFor="budget"
