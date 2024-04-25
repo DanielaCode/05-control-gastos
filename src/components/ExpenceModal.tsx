@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { useBudget } from '../hooks/useBudget'
+import ExpenceForm from './ExpenceForm'
 
 //SECTION - un componente sacado de un link, muestra un modal cuando presionas el +
 //LINK - https://gist.github.com/codigoconjuan/92e8a52abc8bd9ea5b81e5ad664d8ef0
@@ -47,7 +48,7 @@ export default function ExpenseModal() {
               >
                 <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
     
-
+                    <ExpenceForm/>
     
                 </Dialog.Panel>
               </Transition.Child>
