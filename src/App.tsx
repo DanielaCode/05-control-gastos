@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import BudgetForm from "./components/BudgetForm";
 import { useBudget } from "./hooks/useBudget";
 import BudgetTracker from "./components/BudgetTracker";
-import ExpenseModal from "./components/ExpenceModal";
+import ExpenseModal from "./components/ExpenseModal";
 
 function App() {
   //SECTION - 8. consumir la informacion compartida en mi caso el state y el dispatch que tiene mi context
