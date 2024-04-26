@@ -2,8 +2,9 @@ import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { DraftExpense, Value } from "../types";
+import ErrorMessage from "./ErrorMessage";
 
 //SECTION - Form que se muestra en el modal para agregar gastos
 function ExpenseForm() {
@@ -13,6 +14,8 @@ function ExpenseForm() {
     category: "",
     date: new Date(),
   });
+
+  const [error,setError] = useState("")
 
   //SECTION - para el select y los inputs creados por mi, 
   function handleOnChange(
@@ -33,12 +36,22 @@ function ExpenseForm() {
     });
   }
 
+  //SECTION - mostrar error si algun campo esta vacio al hacer submit
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+    e.preventDefault()
+
+    if(Object.values(expense).includes("")){
+      setError("Todos los campos son necesarios")
+    }else{
+      setError("")
+    }
+  }
   return (
     <>
       <legend className="text-3xl font-black text-center border-b-4 border-blue-700 pb-2 uppercase">
         Nuevo gasto
       </legend>
-      <form className="flex flex-col gap-4 mt-8">
+      <form className="flex flex-col gap-4 mt-8" onSubmit={handleSubmit}>
         <label htmlFor="name" className="text-2xl">
           Nombre del gasto:
         </label>
@@ -94,6 +107,7 @@ function ExpenseForm() {
           value="agreguemos esto"
           className="p-3 bg-blue-600 text-white uppercase text-4 font-bold rounded-lg mt-4"
         />
+        {error&&<ErrorMessage>{error}</ErrorMessage>}
       </form>
     </>
   );
