@@ -5,15 +5,22 @@ import "react-calendar/dist/Calendar.css";
 import { useState } from "react";
 import { DraftExpense, Value } from "../types";
 import ErrorMessage from "./ErrorMessage";
+import { useBudget } from "../hooks/useBudget";
 
 //SECTION - Form que se muestra en el modal para agregar gastos
 function ExpenseForm() {
-  const [expense, setExpense] = useState<DraftExpense>({
+
+  //SECTION - para que cuando se haga submit y sea valido ejecute un action y guarde el gasto en el state del reducer
+  const {dispatch} = useBudget()
+
+  const initialExpense ={
     name: "",
     amount: 0,
     category: "",
     date: new Date(),
-  });
+  }
+
+  const [expense, setExpense] = useState<DraftExpense>(initialExpense);
 
   const [error,setError] = useState("")
 
@@ -43,9 +50,13 @@ function ExpenseForm() {
     if(Object.values(expense).includes("")){
       setError("Todos los campos son necesarios")
     }else{
+      setExpense(initialExpense)
       setError("")
+      dispatch({type:"add-expense", payload:{expense:expense}})
     }
   }
+
+
   return (
     <>
       <legend className="text-3xl font-black text-center border-b-4 border-blue-700 pb-2 uppercase">
