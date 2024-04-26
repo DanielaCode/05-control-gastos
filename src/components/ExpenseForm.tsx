@@ -14,17 +14,18 @@ function ExpenseForm() {
     date: new Date(),
   });
 
+  //SECTION - para el select y los inputs creados por mi, 
   function handleOnChange(
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement> |  React.ChangeEvent<HTMLSelectElement>
   ) {
     const { name, value } = e.target;
-    const isAmountField = ["expenseAmount"].includes(name);
+    const isAmountField = ["amount"].includes(name);
     setExpense({
       ...expense,
-      [name]: isAmountField ? +value : value,
+      [name]: isAmountField ? Number(value) : value,
     });
   }
-
+  //SECTION - para el Input del tercero, con el tipo que ellos definen
   function handleChangeDate(value: Value) {
     setExpense({
       ...expense,
@@ -38,38 +39,38 @@ function ExpenseForm() {
         Nuevo gasto
       </legend>
       <form className="flex flex-col gap-4 mt-8">
-        <label htmlFor="expenseName" className="text-2xl">
+        <label htmlFor="name" className="text-2xl">
           Nombre del gasto:
         </label>
         <input
           type="text"
-          id="expenseName"
-          name="expenseName"
+          id="name"
+          name="name"
           placeholder="Dale nombre al gasto"
           className="bg-slate-100 p-3"
           value={expense.name}
           onChange={handleOnChange}
         />
 
-        <label htmlFor="expenseAmount" className="text-2xl">
+        <label htmlFor="amount" className="text-2xl">
           Monto del gasto:
         </label>
         <input
           type="text"
-          id="expenseAmount"
-          name="expenseAmount"
+          id="amount"
+          name="amount"
           placeholder="Cuanto gastaste"
           className="bg-slate-100 p-3"
           value={expense.amount}
           onChange={handleOnChange}
         />
 
-        <label htmlFor="expenseCategory" className="text-2xl">
+        <label htmlFor="category" className="text-2xl">
           Categoria:
         </label>
         <select
-          id="expenseCategory"
-          name="expenseCategory"
+          id="category"
+          name="category"
           className="bg-slate-100 p-3"
           onChange={handleOnChange}
         >
