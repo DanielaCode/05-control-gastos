@@ -3,7 +3,7 @@ import AmountLabel from "./AmountLabel";
 //SECTION - componente mostrado si ya se seteo un presupuesto, grafica y resumen
 function BudgetTracker() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 bg-white shadow-lg p-10 rounded-lg">
       <div className="flex justify-center">
         <img src="/public/grafico.jpg" alt="grafico de gastos" />
       </div>

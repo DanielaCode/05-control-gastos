@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { useBudget } from "../hooks/useBudget"
 import { Expense } from "../types"
+import ExpenseDetail from "./ExpenseDetail"
 
 //SECTION - componente para mostrar los gastos agregados en el state de reducer
 function ExpenseList() {
@@ -17,9 +18,11 @@ function ExpenseList() {
                         Listado de gastos.
                     </p>
                     {
-                        state.expenses.map((e:Expense)=>{
-                            <p>detalle de gastos</p>
-                        })
+                        state.expenses.map((e:Expense)=>
+                            <ExpenseDetail
+                                expense={e}
+                            />
+                        )
                     }
                 </>
             )

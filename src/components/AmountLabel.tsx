@@ -1,7 +1,7 @@
 import { formatCurrency } from '../helpers/index';
 
 type AmountLabelProps={
-    label:string,
+    label?:string,
     amount:number
 }
 
@@ -9,7 +9,7 @@ type AmountLabelProps={
 function AmountLabel({label,amount}:AmountLabelProps) {
   return (
     <p className="text-2xl text-blue-600 font-bold">
-        {label}:{" "}
+        {label&&(label+": ")}
         <span className="text-black"> {formatCurrency(amount)} </span>
     </p>
   )

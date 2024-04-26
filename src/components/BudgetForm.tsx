@@ -23,8 +23,8 @@ function BudgetForm() {
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
-      <section className="flex flex-col space-y-5">
+    <form className="space-y-5 max-w-4xl mx-auto bg-white shadow-lg p-10 rounded-lg m-2" onSubmit={handleSubmit}>
+      <section className="flex flex-col space-y-5 ">
         <label
           htmlFor="budget"
           className="text-blue-600 text-4xl from-black font-bold text-center"
