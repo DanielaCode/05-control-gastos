@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*** SWIPE LIST OVERRIDES, agregando directivas de css a clases de una libreria que tome de npm y asi personalizarlas con apply **/
+.swipeable-list-item__leading-actions, 
+.swipeable-list-item__trailing-actions {
+  @apply text-white text-lg uppercase font-bold;
+}
+.swipeable-list-item__leading-actions{
+  @apply bg-blue-600 py-2;
+}
+.swipeable-list-item__trailing-actions {
+  @apply bg-pink-600 py-2;
+}
+.swipeable-list .swipe-action {
+  @apply flex justify-center items-center
+}
+

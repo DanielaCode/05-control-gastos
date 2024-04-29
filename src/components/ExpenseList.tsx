@@ -13,7 +13,7 @@ function ExpenseList() {
             isEmpty?
             <p className="text-gray-600 text-2xl font-bold">No hay gastos</p>:
             (
-                <>
+                <div className="max-w-4xl">
                     <p className="text-gray-600 text-2xl font-bold my-5">
                         Listado de gastos.
                     </p>
@@ -24,7 +24,7 @@ function ExpenseList() {
                             />
                         )
                     }
-                </>
+                </div>
             )
         }
     </div>
