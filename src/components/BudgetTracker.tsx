@@ -8,17 +8,18 @@ function BudgetTracker() {
   const {available,totalExpenses,state,dispatch}=useBudget()
   const percentage = +((totalExpenses/state.budget)*100).toFixed(2)
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 bg-white shadow-lg p-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 bg-white shadow-lg p-10 rounded-lg">
       <div className="flex justify-center">
         <CircularProgressbar
             value={percentage}
             styles={buildStyles({
               pathColor:percentage===100?"#DC2626":"#3B82F6",
               trailColor:"#F5F5F5",
-              textSize:8,
+              textSize:18,
               textColor:percentage===100?"#DC2626":"#3B82F6"
             })}
-            text={`${percentage}% Gastado`}
+            text={`${percentage}%`}
+            className="p-10"
         />
       </div>
       <div className="flex flex-col justify-center items-center gap-4">

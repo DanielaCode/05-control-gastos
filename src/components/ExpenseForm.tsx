@@ -13,10 +13,13 @@ function ExpenseForm() {
   //SECTION - para que cuando se haga submit y sea valido ejecute un action y guarde el gasto en el state del reducer
   const {state,dispatch, available} = useBudget()
   
+  const [prevAmount,setPrevAmount] = useState(0)
   //SECTION - si se esta editando llene los campos del formulario con los datos del gasto al que se le hizo swip en update
   useEffect(()=>{
     if(state.idEditedItem){
-      setExpense(state.expenses.filter(e=>e.id ===state.idEditedItem)[0])
+      const tempExpense=state.expenses.filter(e=>e.id ===state.idEditedItem)[0]
+      setPrevAmount(tempExpense.amount)
+      setExpense(tempExpense)
     }
   },[state.idEditedItem])
 
@@ -59,8 +62,8 @@ function ExpenseForm() {
 
     if(Object.values(expense).includes("")){
       setError("Todos los campos son necesarios")
-    }else if(expense.amount>available){
-      setError("Ya no tienes saldo:")
+    }else if((expense.amount-prevAmount)>available){
+      setError("Ya no tienes saldo")
       console.log(expense.amount +"  :  "+available)
     }else{
       setExpense(initialExpense)
@@ -134,7 +137,7 @@ function ExpenseForm() {
         />
         <input
           type="submit"
-          value={isUpdating?"guardar cambios":"agreguemos esto"}
+          value={isUpdating?"guardar cambios":"agregar gasto"}
           className="p-3 bg-blue-600 text-white uppercase text-4 font-bold rounded-lg mt-4"
         />
         {error&&<ErrorMessage>{error}</ErrorMessage>}

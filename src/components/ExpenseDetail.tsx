@@ -48,15 +48,14 @@ function ExpenseDetail({ expense }: ExpenseDetailProps) {
     </TrailingActions>
   );
   return (
-    <SwipeableList>
+    <SwipeableList key={expense.id}>
       <SwipeableListItem
         maxSwipe={30}
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
-        className="my-1 shadow-lg "
+        className="my-1 shadow-lg rounded-lg"
       >
         <div
-          key={expense.id}
           className="w-full mx-auto bg-white p-10 grid grid-cols-1 justify-center md:grid-cols-3 md:items-center"
         >
           <img
