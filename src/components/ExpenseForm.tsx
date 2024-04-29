@@ -60,7 +60,8 @@ function ExpenseForm() {
     if(Object.values(expense).includes("")){
       setError("Todos los campos son necesarios")
     }else if(expense.amount>available){
-      setError("Ya no tienes saldo")
+      setError("Ya no tienes saldo:")
+      console.log(expense.amount +"  :  "+available)
     }else{
       setExpense(initialExpense)
       setError("")

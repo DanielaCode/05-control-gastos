@@ -8,7 +8,8 @@ export type BudgetActions =
 {type:"add-expense", payload:{expense:DraftExpense}}|
 {type:"delete-expense", payload:{id:Expense["id"]}}|
 {type:"show-edit-modal", payload:{id:Expense["id"]}}|
-{type:"update-expense", payload:{expense:Expense}}
+{type:"update-expense", payload:{expense:Expense}}|
+{type:"reset-app"}
 
 
 //SECTION - recuperando el state d elocal storage
@@ -112,6 +113,15 @@ export function budgetReducer(
             expenses:updatedExpense,
             modal:false,
             idEditedItem:""
+        }
+    }
+
+    if (action.type==="reset-app") {
+        
+        return{
+           ...state,
+           budget:0,
+           expenses:[]
         }
     }
 

@@ -27,9 +27,9 @@ export function BudgetProvider({ children }: BudgetProviderProps) {
   //SECTION - 3. El state que se quiere compartir, en mi caso useReducer
   const [state, dispatch] = useReducer(budgetReducer, initialState);
 
-  const totalExpenses =useMemo(()=>state.expenses.map(e=>e.amount).reduce((total,e)=>total+e,0),[state.expenses]) 
+  const totalExpenses =useMemo(()=>state.expenses.map(e=>e.amount).reduce((total,e)=>total+e,0),[state]) 
 
-  const available = useMemo(()=>state.budget-totalExpenses,[state.expenses]) 
+  const available = useMemo(()=>state.budget-totalExpenses,[state]) 
 
   return (
     //SECTION - 4.pasar los que se puso en 3. como una props a el children
