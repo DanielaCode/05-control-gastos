@@ -6,7 +6,8 @@ import ExpenseDetail from "./ExpenseDetail"
 //SECTION - componente para mostrar los gastos agregados en el state de reducer
 function ExpenseList() {
    const {state} = useBudget()
-   const isEmpty = useMemo(()=>state.expenses.length===0,[state.expenses])
+   const filteredList = state.expenses.filter(e => e.category === state.category)
+   const isEmpty = useMemo(()=>filteredList.length===0,[filteredList])
   return (
     <div className="mt-10">
         {
@@ -18,7 +19,7 @@ function ExpenseList() {
                         Listado de gastos.
                     </p>
                     {
-                        state.expenses.map((e:Expense)=>
+                        filteredList.map((e:Expense)=>
                             <ExpenseDetail
                                 expense={e}
                             />

@@ -1,4 +1,4 @@
-import { DraftExpense, Expense } from "../types"
+import { Category, DraftExpense, Expense } from "../types"
 import { v4 as uuidv4 } from "uuid"
 //SECTION - type para action
 export type BudgetActions = 
@@ -9,7 +9,8 @@ export type BudgetActions =
 {type:"delete-expense", payload:{id:Expense["id"]}}|
 {type:"show-edit-modal", payload:{id:Expense["id"]}}|
 {type:"update-expense", payload:{expense:Expense}}|
-{type:"reset-app"}
+{type:"reset-app"}|
+{type:"filter-expense", payload:{category:Category["id"]}}
 
 
 //SECTION - recuperando el state d elocal storage
@@ -28,7 +29,8 @@ export type BudgetState = {
     budget:number,
     modal:boolean,
     expenses:Expense[],
-    idEditedItem:Expense["id"]
+    idEditedItem:Expense["id"],
+    category:Category["id"]
 }
 
 //SECTION - Initial state
@@ -36,7 +38,8 @@ export const initialState:BudgetState = {
     budget: getLSBudget(),
     modal:false,
     expenses:getLSExpenses(),
-    idEditedItem:""
+    idEditedItem:"",
+    category:""
 }
 
 //SECTION - Reducer
@@ -122,6 +125,14 @@ export function budgetReducer(
            ...state,
            budget:0,
            expenses:[]
+        }
+    }
+
+    if (action.type==="filter-expense") {
+        
+        return{
+           ...state,
+           category:action.payload.category
         }
     }
 
