@@ -11,7 +11,7 @@ import { useBudget } from "../hooks/useBudget";
 function ExpenseForm() {
 
   //SECTION - para que cuando se haga submit y sea valido ejecute un action y guarde el gasto en el state del reducer
-  const {state,dispatch} = useBudget()
+  const {state,dispatch, available} = useBudget()
   
   //SECTION - si se esta editando llene los campos del formulario con los datos del gasto al que se le hizo swip en update
   useEffect(()=>{
@@ -59,6 +59,8 @@ function ExpenseForm() {
 
     if(Object.values(expense).includes("")){
       setError("Todos los campos son necesarios")
+    }else if(expense.amount>available){
+      setError("Ya no tienes saldo")
     }else{
       setExpense(initialExpense)
       setError("")
@@ -68,6 +70,7 @@ function ExpenseForm() {
         dispatch({type:"add-expense", payload:{expense:expense}})
       }
     }
+    
   }
 
 
