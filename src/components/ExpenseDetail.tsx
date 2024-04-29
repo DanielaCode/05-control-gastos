@@ -11,6 +11,7 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
+import { useBudget } from "../hooks/useBudget";
 
 type ExpenseDetailProps = {
   expense: Expense;
@@ -18,10 +19,13 @@ type ExpenseDetailProps = {
 
 //SECTION - componente que muestra el detalle de cada detalle, se renderizan en la lista
 function ExpenseDetail({ expense }: ExpenseDetailProps) {
+  
   const category = useMemo(
     () => categories.filter((e) => e.id === expense.category)[0],
     [expense]
   );
+
+  const {dispatch} = useBudget()
 
   //SECTION - menu que se muestra al deslizar un item a la derecha
   const leadingActions = () => (
@@ -37,7 +41,7 @@ function ExpenseDetail({ expense }: ExpenseDetailProps) {
     <TrailingActions>
       <SwipeAction
         destructive={true}
-        onClick={() => console.info("swipe action triggered")}
+        onClick={() => dispatch({type:"delete-expense",payload:{id:expense.id}})}
       >
         Delete
       </SwipeAction>

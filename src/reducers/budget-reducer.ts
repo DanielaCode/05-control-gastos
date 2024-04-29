@@ -5,7 +5,8 @@ export type BudgetActions =
 {type:"add-budget", payload:{budget:number}}|
 {type:"show-modal"}|
 {type:"close-modal"}|
-{type:"add-expense", payload:{expense:DraftExpense}}
+{type:"add-expense", payload:{expense:DraftExpense}}|
+{type:"delete-expense", payload:{id:Expense["id"]}}
 
 
 
@@ -65,6 +66,14 @@ export function budgetReducer(
             ...state,
             expenses: [...state.expenses, newExpense],
             modal:false
+        }
+    }
+
+    if (action.type==="delete-expense") {
+
+        return{
+            ...state,
+            expenses: state.expenses.filter(e=>e.id !== action.payload.id )
         }
     }
 
