@@ -30,8 +30,8 @@ function ExpenseDetail({ expense }: ExpenseDetailProps) {
   //SECTION - menu que se muestra al deslizar un item a la derecha
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => console.info("swipe action triggered")}>
-        Action name
+      <SwipeAction onClick={() => dispatch({type:"show-edit-modal",payload:{id:expense.id}})}>
+        Update
       </SwipeAction>
     </LeadingActions>
   );

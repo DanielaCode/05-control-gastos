@@ -6,7 +6,10 @@ export type BudgetActions =
 {type:"show-modal"}|
 {type:"close-modal"}|
 {type:"add-expense", payload:{expense:DraftExpense}}|
-{type:"delete-expense", payload:{id:Expense["id"]}}
+{type:"delete-expense", payload:{id:Expense["id"]}}|
+{type:"show-edit-modal", payload:{id:Expense["id"]}}|
+{type:"update-expense", payload:{expense:Expense}}
+
 
 //SECTION - recuperando el state d elocal storage
 function getLSBudget():number{
@@ -23,14 +26,16 @@ function getLSExpenses():Expense[]{
 export type BudgetState = {
     budget:number,
     modal:boolean,
-    expenses:Expense[]
+    expenses:Expense[],
+    idEditedItem:Expense["id"]
 }
 
 //SECTION - Initial state
 export const initialState:BudgetState = {
     budget: getLSBudget(),
     modal:false,
-    expenses:getLSExpenses()
+    expenses:getLSExpenses(),
+    idEditedItem:""
 }
 
 //SECTION - Reducer
@@ -59,7 +64,8 @@ export function budgetReducer(
         
         return{
             ...state,
-            modal: false
+            modal: false,
+            idEditedItem:""
         }
     }
 
@@ -83,6 +89,29 @@ export function budgetReducer(
         return{
             ...state,
             expenses: state.expenses.filter(e=>e.id !== action.payload.id )
+        }
+    }
+
+    if (action.type==="show-edit-modal") {
+
+        return{
+            ...state,
+            idEditedItem:action.payload.id,
+            modal:true
+        }
+    }
+
+    if (action.type==="update-expense") {
+        
+        
+
+        const updatedExpense = state.expenses.map(e=>e.id===action.payload.expense.id?(action.payload.expense):(e))
+
+        return{
+            ...state, 
+            expenses:updatedExpense,
+            modal:false,
+            idEditedItem:""
         }
     }
 

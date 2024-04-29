@@ -2,7 +2,7 @@ import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DraftExpense, Value } from "../types";
 import ErrorMessage from "./ErrorMessage";
 import { useBudget } from "../hooks/useBudget";
@@ -11,7 +11,17 @@ import { useBudget } from "../hooks/useBudget";
 function ExpenseForm() {
 
   //SECTION - para que cuando se haga submit y sea valido ejecute un action y guarde el gasto en el state del reducer
-  const {dispatch} = useBudget()
+  const {state,dispatch} = useBudget()
+  
+  //SECTION - si se esta editando llene los campos del formulario con los datos del gasto al que se le hizo swip en update
+  useEffect(()=>{
+    if(state.idEditedItem){
+      setExpense(state.expenses.filter(e=>e.id ===state.idEditedItem)[0])
+    }
+  },[state.idEditedItem])
+
+  //SECTION - para que muestre diferentes titulos y texto del boton cuando se actualiza de cuando se crea un gasto nuevo
+  const isUpdating = useMemo(()=>state.idEditedItem.length!==0,[state.idEditedItem])
 
   const initialExpense ={
     name: "",
@@ -52,7 +62,11 @@ function ExpenseForm() {
     }else{
       setExpense(initialExpense)
       setError("")
-      dispatch({type:"add-expense", payload:{expense:expense}})
+      if (isUpdating) {
+        dispatch({type:"update-expense", payload:{expense:{...expense,id:state.idEditedItem}}})
+      }else{
+        dispatch({type:"add-expense", payload:{expense:expense}})
+      }
     }
   }
 
@@ -60,7 +74,7 @@ function ExpenseForm() {
   return (
     <>
       <legend className="text-3xl font-black text-center border-b-4 border-blue-700 pb-2 uppercase">
-        Nuevo gasto
+        {isUpdating?"Editando gasto":"Nuevo gasto"}
       </legend>
       <form className="flex flex-col gap-4 mt-8" onSubmit={handleSubmit}>
         <label htmlFor="name" className="text-2xl">
@@ -96,6 +110,7 @@ function ExpenseForm() {
           id="category"
           name="category"
           className="bg-slate-100 p-3"
+          value={expense.category}
           onChange={handleOnChange}
         >
           <option>Selecciona</option>
@@ -115,7 +130,7 @@ function ExpenseForm() {
         />
         <input
           type="submit"
-          value="agreguemos esto"
+          value={isUpdating?"guardar cambios":"agreguemos esto"}
           className="p-3 bg-blue-600 text-white uppercase text-4 font-bold rounded-lg mt-4"
         />
         {error&&<ErrorMessage>{error}</ErrorMessage>}
