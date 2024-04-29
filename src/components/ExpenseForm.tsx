@@ -40,7 +40,7 @@ function ExpenseForm() {
   ) {
     const { name, value } = e.target;
     const isAmountField = ["amount"].includes(name);
-    setExpense({
+    setExpense({ 
       ...expense,
       [name]: isAmountField ? Number(value) : value,
     });
