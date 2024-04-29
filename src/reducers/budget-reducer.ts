@@ -8,7 +8,16 @@ export type BudgetActions =
 {type:"add-expense", payload:{expense:DraftExpense}}|
 {type:"delete-expense", payload:{id:Expense["id"]}}
 
+//SECTION - recuperando el state d elocal storage
+function getLSBudget():number{
+    const lsb = localStorage.getItem("budget");
+    return lsb?+lsb:0
+}
 
+function getLSExpenses():Expense[]{
+    const lse = localStorage.getItem("expenses");
+    return lse?JSON.parse(lse):[]
+}
 
 //SECTION - type para state
 export type BudgetState = {
@@ -19,9 +28,9 @@ export type BudgetState = {
 
 //SECTION - Initial state
 export const initialState:BudgetState = {
-    budget: 0,
+    budget: getLSBudget(),
     modal:false,
-    expenses:[]
+    expenses:getLSExpenses()
 }
 
 //SECTION - Reducer

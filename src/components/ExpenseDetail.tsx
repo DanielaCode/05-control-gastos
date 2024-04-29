@@ -53,10 +53,11 @@ function ExpenseDetail({ expense }: ExpenseDetailProps) {
         maxSwipe={30}
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
+        className="my-1 shadow-lg "
       >
         <div
           key={expense.id}
-          className="w-full mx-auto bg-white shadow-lg p-10 rounded-lg grid grid-cols-1 justify-center md:grid-cols-3 md:items-center"
+          className="w-full mx-auto bg-white p-10 grid grid-cols-1 justify-center md:grid-cols-3 md:items-center"
         >
           <img
             src={`/public/icono_${category.icon}.svg`}
